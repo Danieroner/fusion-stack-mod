@@ -1,7 +1,7 @@
 name = "Fusion Stack"
 description = "Combine the features of stacking armor and anything item in the inventory with stacking items such as rocks, wood, gold, all loot dropped. By default 100 stacks are enabled with a maximum of 999 stacks."
 author = "Danieroner"
-version = "1.0.0"
+version = "1.1.0"
 forumthread = "/"
 
 api_version = 10

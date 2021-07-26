@@ -15,3 +15,7 @@ All contributions to this mod will be received.
 **Version 1.0.0**
 
 - Initial release.
+
+**Version 1.1.0**
+
+- Pig King Exchange now can be stacked.

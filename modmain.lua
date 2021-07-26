@@ -320,7 +320,38 @@ local function prefabs_behavior(inst)
   end)
 end
 
+local function pig_king_stack(inst)
+  local old_onaccept = inst.components.trader.onaccept
+  inst.components.trader.onaccept = function(inst, giver, item)
+    if old_onaccept ~= nil then 
+      old_onaccept(inst, giver, item) 
+    end
+
+    inst:DoTaskInTime(2, function(inst)
+      local x, y, z = inst:GetPosition():Get()
+      local range = 20
+      local ents = TheSim:FindEntities(
+        x, y, z, 
+        range, 
+        { "_inventoryitem" }, 
+        { "INLIMBO", "NOCLICK", "catchable", "fire" }
+      )
+      for _, objBase in pairs(ents) do
+        if objBase:IsValid() and objBase.components.stackable and not 
+          objBase.components.stackable:IsFull() then
+          for _,obj in pairs(ents) do
+            if obj:IsValid() then
+              put_prefab_target(objBase, obj)
+            end
+          end
+        end
+      end
+    end)
+  end
+end
+
 if not is_dst or (is_dst and is_server) then
+  AddPrefabPostInit("pigking", pig_king_stack)
   AddPrefabPostInitAny(add_stackable)
   AddPrefabPostInitAny(prefabs_behavior)
   AddComponentPostInit("stackable", stackable_behavior)
